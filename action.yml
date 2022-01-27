@@ -1,0 +1,23 @@
+name: 'Package diff comment'
+description: 'A Github action that adds a comments to a PR with the diff of the package and the package of the branch from which it was derived.'
+branding:
+  icon: git-pull-request
+  color: green
+inputs:
+  token:
+    description: 'Github token used to access the github API. Assign from '
+    required: true
+  package:
+    description: 'The OpenTAP package to generate the API Diff for.'
+    required: false
+outputs:
+  diff-comment:
+    description: 'A string containing the generated diff'
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+  - DiffAction
+  - --package=${{ inputs.package }}
+  - --token=${{ inputs.token }}

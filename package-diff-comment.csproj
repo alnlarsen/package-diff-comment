@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <LangVersion>10.0</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <OpenTapVersion>9.17.0-beta.22+096726d7</OpenTapVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Octokit" Version="0.50.0" />
+    <PackageReference Include="Octokit.GraphQL" Version="0.1.8-beta" />
+    <PackageReference Include="OpenTAP" Version="$(OpenTapVersion)">
+      <!--<ExcludeAssets>build</ExcludeAssets>-->
+    </PackageReference>
+    <OpenTapPackageReference Include="OpenTAP" />
+    <OpenTapPackageReference Include="Package Diff" Version="0.1.0-beta.16+cae36d16" />
+  </ItemGroup>
+</Project>
