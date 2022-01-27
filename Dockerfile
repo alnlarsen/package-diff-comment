@@ -1,8 +1,10 @@
-# Set the base image as the .NET 5.0 SDK (this includes the runtime)
+# Set the base image as the .NET 6.0 SDK
 FROM mcr.microsoft.com/dotnet/sdk:6.0
 
 # Copy everything and publish the release (publish implicitly restores and builds)
-RUN dotnet publish ./package-diff-comment.csproj -c Release
+COPY . ./src
+RUN dotnet publish ./src/package-diff-comment.csproj -c Release
+COPY ./src/bin/Release/publish /tap
 
 # Label the container
 LABEL maintainer="Alexander Larsen <alexander.larsen@keysight.com>"
@@ -17,4 +19,4 @@ LABEL com.github.actions.description="A Github action that adds a comments to a 
 LABEL com.github.actions.icon="git-pull-request"
 LABEL com.github.actions.color="green"
 
-ENTRYPOINT [ "dotnet", "./bin/Release/publish/tap.dll" ]
+ENTRYPOINT [ "dotnet", "/tap/tap.dll" ]
