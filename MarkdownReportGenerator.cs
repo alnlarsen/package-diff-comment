@@ -56,9 +56,9 @@ public class MarkdownReportGenerator : IReportGenerator
         var keys = categoryMap.Keys.ToList();
         keys.Sort();
 
-        report.Append(@"<details>
-  <summary>View Diff</summary>
-  ");
+        report.AppendLine("<details>");
+        report.AppendLine("<summary>View Diff</summary>");
+        report.AppendLine();
 
         foreach (var key in keys)
         {
