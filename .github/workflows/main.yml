@@ -15,7 +15,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Install OpenTAP
-        run: wget -O OpenTap.TapPackage https://packages.opentap.io/3.0/DownloadPackage/OpenTAP?version=9.16.4%2B654f0b6b&os=Linux&architecture=x64
+        run: wget -O OpenTap.TapPackage https://packages.opentap.io/3.0/DownloadPackage/OpenTAP?version=9.17.0-beta.22%2B096726d7&os=Linux&architecture=x64
       - name: Run action step
         uses: ./ # Uses an action in the root directory
         id: hello
