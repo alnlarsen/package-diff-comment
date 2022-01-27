@@ -72,8 +72,7 @@ public class MarkdownReportGenerator : IReportGenerator
             }
 
             report.AppendLine("```");
-
-            publish();
         }
+        publish();
     }
 }
