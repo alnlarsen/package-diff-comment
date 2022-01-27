@@ -10,7 +10,15 @@ public class MarkdownReportGenerator : IReportGenerator
     private StringBuilder report = new StringBuilder();
     public void Create(PackageDef lower, PackageDef higher, string name)
     {
-        report.AppendLine($"Diff of {lower.Name} `{lower.Version} > {higher.Version}`");
+        var header = $"Diff of {lower.Name}";
+        if (string.IsNullOrWhiteSpace(lower.OS) == false)
+            header += $" OS={lower.OS}";
+        if (lower.Architecture != CpuArchitecture.Unspecified && lower.Architecture != CpuArchitecture.AnyCPU)
+            header += $" Architecture={lower.Architecture}";
+
+        report.AppendLine(header);
+        report.AppendLine($"`<< {lower.Version}`");
+        report.AppendLine($"`>> {higher.Version}`");
     }
 
     class Category
