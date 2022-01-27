@@ -1,5 +1,5 @@
 name: 'Package diff comment'
-description: 'A Github action that adds a comments to a PR with the diff of the package and the package of the branch from which it was derived.'
+description: 'Github action that can comment on commits to indicate the diff of an OpenTAP package from that commit and the package from a suitable ancestor from which it is derived.'
 branding:
   icon: git-pull-request
   color: green

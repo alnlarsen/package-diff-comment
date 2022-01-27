@@ -41,10 +41,8 @@ public class MarkdownReportGenerator : IReportGenerator
     /// </summary>
     private void publish()
     {
-        Console.WriteLine($"Publishing report:");
         var result = report.ToString();
-        Console.WriteLine(result);
-        Publisher.Publish(result);
+        Publisher.Publish(result).GetAwaiter().GetResult();
     }
 
     public void Finish()
