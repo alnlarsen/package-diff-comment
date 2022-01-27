@@ -57,6 +57,8 @@ public class MarkdownReportGenerator : IReportGenerator
         var keys = categoryMap.Keys.ToList();
         keys.Sort();
 
+        report.AppendLine("<details>");
+
         foreach (var key in keys)
         {
             var category = categoryMap[key];
@@ -73,6 +75,7 @@ public class MarkdownReportGenerator : IReportGenerator
 
             report.AppendLine("```");
         }
+        report.AppendLine("</details>");
         publish();
     }
 }
