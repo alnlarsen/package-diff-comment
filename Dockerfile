@@ -4,7 +4,7 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0
 # Copy everything and publish the release (publish implicitly restores and builds)
 COPY . ./src
 RUN dotnet publish ./src/package-diff-comment.csproj -c Release
-COPY ./src/bin/Release/publish /tap
+RUN mv ./src/bin/Release/publish /tap
 
 # Label the container
 LABEL maintainer="Alexander Larsen <alexander.larsen@keysight.com>"
