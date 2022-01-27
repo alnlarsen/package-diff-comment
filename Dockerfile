@@ -22,5 +22,5 @@ COPY --from=build-env /out/Octokit.dll /opt/tap
 COPY --from=build-env /out/Octokit.GraphQL.dll /opt/tap
 COPY --from=build-env /out/Octokit.GraphQL.Core.dll /opt/tap
 COPY --from=build-env /out/package-diff-comment.dll /opt/tap
-COPY --from=build-env /out/PackageDiff.dll /opt/tap
+RUN dotnet /opt/tap/tap.dll package install "Package Diff" --version any
 ENTRYPOINT [ "dotnet", "/opt/tap/tap.dll" ]
