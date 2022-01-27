@@ -10,8 +10,7 @@ public class MarkdownReportGenerator : IReportGenerator
     private StringBuilder report = new StringBuilder();
     public void Create(PackageDef lower, PackageDef higher, string name)
     {
-        report.AppendLine($"# Diff of {lower.Name}");
-        report.AppendLine($"> {lower.Version} > {higher.Version}");
+        report.AppendLine($"Diff of {lower.Name} `{lower.Version} > {higher.Version}`");
     }
 
     class Category
