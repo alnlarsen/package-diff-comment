@@ -15,9 +15,7 @@ This uses the OpenTAP package [Package Diff](http://packages.opentap.io/index.ht
 To use get comments on merged PRs in your GitHub repository, create a workflow (eg: `.github/workflows/package-diff-comment.yaml` see [Creating a Workflow file](https://help.github.com/en/articles/configuring-a-workflow#creating-a-workflow-file)) with content like below:
 
 ```yaml
-push:
-    branches:
-      - 'main'
+on: [push]
 
 # This grants access to the GITHUB_TOKEN so the action can make calls to GitHub's rest API
 permissions:
@@ -29,20 +27,17 @@ jobs:
   package-diff-comment:
     runs-on: ubuntu-latest
     name: package-diff-comment
+    needs:
+      - BuildMyPackage
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      - name: Download package
+        uses: actions/download-artifact@v2
         with:
-          # This action needs the entire history of the repository to calculate the version
-          fetch-depth: 0
-      - name: Run comment action
-        uses: alnlarsen/package-diff-comment
+          name: MyTapPackage
+          path: .
+      - name: Run diff action
+        uses: alnlarsen/package-diff-comment@main
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          # (Optional) Content of the comment to add to a merged pull request. Use {version} 
-          # to insert the version number.
-          body: This change is part of version `{version}` or later.
-          # (Optional) Content of the comment to add to an issue that was closed as a 
-          # consequence of a PR merge. Use {version} to insert the version number.
-          issue-body: A fix for this is in version `{version}` or later.
+          package: MyPackage.TapPackage 
 ```

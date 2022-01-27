@@ -12,6 +12,8 @@ jobs:
     steps:
       # To use this repository's private action,
       # you must check out the repository
+      - name: Checkout
+        uses: actions/checkout@v2
       - name: Install OpenTAP
         run: wget -O OpenTap.TapPackage https://packages.opentap.io/3.0/DownloadPackage/OpenTAP?version=9.16.4%2B654f0b6b&os=Linux&architecture=x64
       - name: Run action step
