@@ -24,5 +24,4 @@ COPY --from=build-env /out/Octokit.dll /opt/tap
 COPY --from=build-env /out/Octokit.GraphQL.dll /opt/tap
 COPY --from=build-env /out/Octokit.GraphQL.Core.dll /opt/tap
 COPY --from=build-env /out/package-diff-comment.dll /opt/tap
-COPY --from=build-env /out/package-diff-comment.runtimeconfig.json /opt/tap
 ENTRYPOINT [ "dotnet", "/opt/tap/tap.dll" ]
