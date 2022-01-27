@@ -18,11 +18,6 @@ LABEL com.github.actions.description="A Github action that adds a comments to a 
 LABEL com.github.actions.icon="git-pull-request"
 LABEL com.github.actions.color="green"
 
-COPY --from=build-env /out/Newtonsoft.Json.dll /opt/tap
-COPY --from=build-env /out/Octokit.dll /opt/tap
-COPY --from=build-env /out/Octokit.GraphQL.dll /opt/tap
-COPY --from=build-env /out/Octokit.GraphQL.Core.dll /opt/tap
-COPY --from=build-env /out/package-diff-comment.dll /opt/tap
-COPY --from=build-env /out/package-diff-comment.runtimeconfig.json /opt/tap
+COPY --from=build-env /out /out
 
 ENTRYPOINT [ "dotnet", "/out/tap.dll" ]
