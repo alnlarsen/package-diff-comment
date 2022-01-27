@@ -24,5 +24,6 @@ COPY --from=build-env /out/Octokit.dll /opt/tap
 COPY --from=build-env /out/Octokit.GraphQL.dll /opt/tap
 COPY --from=build-env /out/Octokit.GraphQL.Core.dll /opt/tap
 COPY --from=build-env /out/package-diff-comment.dll /opt/tap
+RUN chmod +x /opt/tap
 RUN /opt/tap package install Package Diff --version 0.1.0-beta.16+cae36d16
 ENTRYPOINT [ "/opt/tap" ]
