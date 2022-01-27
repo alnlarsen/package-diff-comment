@@ -1,19 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Octokit;
-using PackageDiff;
+﻿using Octokit;
 
 namespace PackageDiffComment
 {
     internal static class Publisher
     {
         public static string Token { get; set; } = "";
-
+        public static bool Called = false;
+        public static object LockObj = new object();
         public static async Task Publish(string comment)
         {
+            lock (LockObj)
+            {
+                if (Called) return;
+                Called = true;
+            }
+
             Console.WriteLine($"Publishing report:");
             Console.WriteLine(comment);
 

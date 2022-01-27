@@ -10,7 +10,7 @@ public class MarkdownReportGenerator : IReportGenerator
     private StringBuilder report = new StringBuilder();
     public void Create(PackageDef lower, PackageDef higher, string name)
     {
-        report.AppendLine($"# Diffing {lower.Name}");
+        report.AppendLine($"# Diff of {lower.Name}");
         report.AppendLine($"> {lower.Version} > {higher.Version}");
     }
 
@@ -54,10 +54,13 @@ public class MarkdownReportGenerator : IReportGenerator
             return;
         }
 
-        foreach (var kvp in categoryMap)
+        var keys = categoryMap.Keys.ToList();
+        keys.Sort();
+
+        foreach (var key in keys)
         {
-            var category = kvp.Value;
-            report.AppendLine($"## {kvp.Key}");
+            var category = categoryMap[key];
+            report.AppendLine($"## {key}");
             report.AppendLine("```diff");
             foreach (var item in category.Added)
             {
