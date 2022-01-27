@@ -19,4 +19,4 @@ LABEL com.github.actions.description="A Github action that adds a comments to a 
 LABEL com.github.actions.icon="git-pull-request"
 LABEL com.github.actions.color="green"
 
-ENTRYPOINT [ "dotnet", "/tap/tap.dll" ]
+ENTRYPOINT [ "/tap/tap" ]
