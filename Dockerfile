@@ -15,6 +15,4 @@ LABEL com.github.actions.description="A Github action that adds a comments to a 
 LABEL com.github.actions.icon="git-pull-request"
 LABEL com.github.actions.color="green"
 
-COPY --from=build-env /out /out
-
 ENTRYPOINT [ "dotnet", "/out/tap.dll" ]
