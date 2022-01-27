@@ -2,7 +2,7 @@
 FROM mcr.microsoft.com/dotnet/sdk:6.0 as build-env
 # Copy everything and publish the release (publish implicitly restores and builds)
 COPY . ./src
-RUN dotnet build ./src/package-diff-comment.csproj -c Release -o /out
+RUN dotnet publish ./src/package-diff-comment.csproj -c Release -o /out --no-self-contained
 # Label the container
 LABEL maintainer="Alexander Larsen <alexander.larsen@keysight.com>"
 LABEL repository="https://github.com/alnlarsen/package-diff-comment"
@@ -15,4 +15,12 @@ LABEL com.github.actions.description="A Github action that adds a comments to a 
 LABEL com.github.actions.icon="git-pull-request"
 LABEL com.github.actions.color="green"
 
-ENTRYPOINT [ "dotnet", "/out/tap.dll" ]
+# Relayer the .NET SDK, anew with the build output
+FROM opentapio/opentap:beta-bionic-slim
+COPY --from=build-env /out/Newtonsoft.Json.dll /opt/tap
+COPY --from=build-env /out/Octokit.dll /opt/tap
+COPY --from=build-env /out/Octokit.GraphQL.dll /opt/tap
+COPY --from=build-env /out/Octokit.GraphQL.Core.dll /opt/tap
+COPY --from=build-env /out/package-diff-comment.dll /opt/tap
+COPY --from=build-env /out/PackageDiff.dll /opt/tap
+ENTRYPOINT [ "dotnet", "/opt/tap/tap.dll" ]
