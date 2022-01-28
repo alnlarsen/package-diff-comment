@@ -10,7 +10,7 @@ public class MarkdownReportGenerator : IReportGenerator
     private StringBuilder report = new StringBuilder();
     public void Create(PackageDef lower, PackageDef higher, string name)
     {
-        report.AppendLine($"Diff of {lower.Name}");
+        report.AppendLine($"Diff of public API of {lower.Name} package");
         report.AppendLine("```");
         if (string.IsNullOrWhiteSpace(lower.OS) == false)
             report.AppendLine($"OS={lower.OS}");
