@@ -10,8 +10,15 @@ public class MarkdownReportGenerator : IReportGenerator
     private StringBuilder report = new StringBuilder();
     public void Create(PackageDef lower, PackageDef higher, string name)
     {
-        report.AppendLine($"# Diffing {lower.Name}");
-        report.AppendLine($"> {lower.Version} > {higher.Version}");
+        report.AppendLine($"Diff of public API of {lower.Name} package");
+        report.AppendLine("```");
+        if (string.IsNullOrWhiteSpace(lower.OS) == false)
+            report.AppendLine($"OS={lower.OS}");
+        if (lower.Architecture != CpuArchitecture.Unspecified && lower.Architecture != CpuArchitecture.AnyCPU)
+            report.AppendLine($"Architecture={lower.Architecture}");
+        report.AppendLine($"From: {lower.Version}");
+        report.AppendLine($"  To: {higher.Version}");
+        report.AppendLine("```");
     }
 
     class Category
@@ -41,10 +48,8 @@ public class MarkdownReportGenerator : IReportGenerator
     /// </summary>
     private void publish()
     {
-        Console.WriteLine($"Publishing report:");
         var result = report.ToString();
-        Console.WriteLine(result);
-        Publisher.Publish(result);
+        Publisher.Publish(result).GetAwaiter().GetResult();
     }
 
     public void Finish()
@@ -56,10 +61,17 @@ public class MarkdownReportGenerator : IReportGenerator
             return;
         }
 
-        foreach (var kvp in categoryMap)
+        var keys = categoryMap.Keys.ToList();
+        keys.Sort();
+
+        report.AppendLine("<details>");
+        report.AppendLine("<summary>View Diff</summary>");
+        report.AppendLine();
+
+        foreach (var key in keys)
         {
-            var category = kvp.Value;
-            report.AppendLine($"## {kvp.Key}");
+            var category = categoryMap[key];
+            report.AppendLine($"## {key}");
             report.AppendLine("```diff");
             foreach (var item in category.Added)
             {
@@ -71,8 +83,8 @@ public class MarkdownReportGenerator : IReportGenerator
             }
 
             report.AppendLine("```");
-
-            publish();
         }
+        report.AppendLine("</details>");
+        publish();
     }
 }

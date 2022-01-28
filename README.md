@@ -1,6 +1,6 @@
 # Pull Request Version Comment Action
 
-Github action that can comment on pull requests to indicate the diff of an OpenTAP package and the package from the branch from which it is derived.
+Github action that can comment on commits to indicate the diff of an OpenTAP package from that commit and the package from a suitable ancestor from which it is derived.
 This uses the OpenTAP package [Package Diff](http://packages.opentap.io/index.html#/?name=Package%20Diff&version=0.1.0-beta.16%2Bcae36d16&os=Windows,Linux&architecture=AnyCPU) and relies on semantic git versioning using `tap sdk gitversion` (see [OpenTAP docs](https://doc.opentap.io/Developer%20Guide/Plugin%20Packaging%20and%20Versioning/#git-assisted-versioning))
 
 ## Prerequisites
@@ -12,7 +12,7 @@ This uses the OpenTAP package [Package Diff](http://packages.opentap.io/index.ht
 
 ## Usage
 
-To use get comments on merged PRs in your GitHub repository, create a workflow (eg: `.github/workflows/package-diff-comment.yaml` see [Creating a Workflow file](https://help.github.com/en/articles/configuring-a-workflow#creating-a-workflow-file)) with content like below:
+To use get comments on commits in your GitHub repository, create a workflow (eg: `.github/workflows/package-diff-comment.yaml` see [Creating a Workflow file](https://help.github.com/en/articles/configuring-a-workflow#creating-a-workflow-file)) with content like below:
 
 ```yaml
 on: [push]
